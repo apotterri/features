@@ -223,7 +223,7 @@ if [ ${GIT_VERSION} = "os-provided" ] || [ ${GIT_VERSION} = "system" ]; then
     if [ $ID = "mariner" ]; then
         check_packages ca-certificates
     fi
-    check_packages git
+    check_packages git git-man
     # Clean up
     clean_up
     exit 0

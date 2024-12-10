@@ -223,7 +223,7 @@ if [ ${GIT_VERSION} = "os-provided" ] || [ ${GIT_VERSION} = "system" ]; then
     if [ $ID = "mariner" ]; then
         check_packages ca-certificates
     fi
-    check_packages git
+    check_packages git git-man
     # Clean up
     clean_up
     exit 0
@@ -236,7 +236,7 @@ if ([ "${GIT_VERSION}" = "latest" ] || [ "${GIT_VERSION}" = "lts" ] || [ "${GIT_
     receive_gpg_keys GIT_CORE_PPA_ARCHIVE_GPG_KEY /usr/share/keyrings/gitcoreppa-archive-keyring.gpg
     echo -e "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/gitcoreppa-archive-keyring.gpg] http://ppa.launchpad.net/git-core/ppa/ubuntu ${VERSION_CODENAME} main\ndeb-src [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/gitcoreppa-archive-keyring.gpg] http://ppa.launchpad.net/git-core/ppa/ubuntu ${VERSION_CODENAME} main" > /etc/apt/sources.list.d/git-core-ppa.list
     ${INSTALL_CMD} update
-    ${INSTALL_CMD} -y install --no-install-recommends git
+    ${INSTALL_CMD} -y install --no-install-recommends git git-man
     rm -rf "/tmp/tmp-gnupg"
     rm -rf /var/lib/apt/lists/*
     exit 0
@@ -245,7 +245,7 @@ fi
 # Install required packages to build if missing
 if [ "${ADJUSTED_ID}" = "debian" ]; then
 
-    check_packages build-essential curl ca-certificates tar gettext libssl-dev zlib1g-dev libcurl?-openssl-dev libexpat1-dev
+    check_packages build-essential curl ca-certificates tar gettext libssl-dev zlib1g-dev libcurl?-openssl-dev libexpat1-dev asciidoc xmlto
 
     check_packages libpcre2-dev
 
@@ -308,7 +308,7 @@ if [ "${ADJUSTED_ID}" = "alpine" ]; then
     git_options+=("NO_REGEX=YesPlease")
     git_options+=("NO_GETTEXT=YesPlease")
 fi
-make -s "${git_options[@]}" all && make -s "${git_options[@]}" install 2>&1
+make -s "${git_options[@]}" all man && make -s "${git_options[@]}" install install-man 2>&1
 rm -rf /tmp/git-${GIT_VERSION}
 clean_up
 echo "Done!"

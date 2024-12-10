@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - git-man_20241210
 
 jobs:
   deploy:
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/git-man_20241210' }}
     runs-on: ubuntu-latest
     permissions:
       packages: write

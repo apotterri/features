@@ -308,6 +308,7 @@ if [ "${ADJUSTED_ID}" = "alpine" ]; then
     git_options+=("NO_REGEX=YesPlease")
     git_options+=("NO_GETTEXT=YesPlease")
 fi
+/usr/local/bin/python3 -m pip install asciidoc
 make -s "${git_options[@]}" all man && make -s "${git_options[@]}" install install-man 2>&1
 rm -rf /tmp/git-${GIT_VERSION}
 clean_up
